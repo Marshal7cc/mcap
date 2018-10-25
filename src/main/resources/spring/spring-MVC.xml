@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd    
+        http://www.springframework.org/schema/mvc   
+        http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd    
+        http://www.springframework.org/schema/context   
+        http://www.springframework.org/schema/context/spring-context.xsd  
+        http://www.springframework.org/schema/tx    
+        http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+    <!-- 开启注解 -->
+    <mvc:annotation-driven>
+        <mvc:message-converters>
+            <!-- 配合produces同时使用 -->
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>text/html;charset=UTF-8</value>
+                        <value>application/json;charset=UTF-8</value>
+                    </list>
+                </property>
+            </bean>
+            <bean
+                    class="org.springframework.http.converter.ResourceHttpMessageConverter">
+            </bean>
+            <bean
+                    class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>text/html;charset=UTF-8</value>
+                        <value>application/json;charset=UTF-8</value>
+                    </list>
+                </property>
+
+                <!-- 处理mybatis+spring+json时间转换差8个小时的！！ -->
+                <!--<property name="objectMapper">-->
+                    <!--<bean class="com.fasterxml.jackson.databind.ObjectMapper">-->
+                        <!--&lt;!&ndash; 处理responseBody 里面日期类型 &ndash;&gt;-->
+                        <!--<property name="dateFormat">-->
+                            <!--<bean class="java.text.SimpleDateFormat">-->
+                                <!--<constructor-arg type="java.lang.String" value="yyyy-MM-dd'T'HH:mm:ss"/>-->
+                            <!--</bean>-->
+                        <!--</property>-->
+                        <!--&lt;!&ndash; 时区指定 &ndash;&gt;-->
+                        <!--<property name="timeZone" value="GMT+8"/>-->
+                        <!--&lt;!&ndash; 为null字段时不显示 &ndash;&gt;-->
+                        <!--<property name="serializationInclusion">-->
+                            <!--<value type="com.fasterxml.jackson.annotation.JsonInclude.Include">NON_NULL</value>-->
+                        <!--</property>-->
+                    <!--</bean>-->
+                <!--</property>-->
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+    <!-- 配置自定扫描包 -->
+    <context:component-scan base-package="com.marshal.**.controller"/>
+    <context:component-scan base-package="com.marshal.**.service.impl"/>
+
+
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.support.StandardServletMultipartResolver"/>
+
+    <!-- 配置视图解析器: 如何把 handler 方法返回值解析为实际的物理视图 -->
+    <bean id="viewResolver"
+          class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/view/"></property>
+        <property name="suffix" value=".html"></property>
+    </bean>
+
+    <!-- 处理静态资源 -->
+    <mvc:default-servlet-handler/>
+
+    <!-- <mvc:interceptors> <mvc:interceptor> <mvc:mapping path="/user/*" />
+        <bean class="com.marshalal.interceptor.UserInterceptor" /> </mvc:interceptor>
+        </mvc:interceptors> -->
+</beans>  

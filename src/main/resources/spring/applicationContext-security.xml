@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+	<!--拦截白名单-->
+	<http security="none" pattern="/*.html"></http>
+	<http security="none" pattern="/css/**"></http>
+	<http security="none" pattern="/js/**"></http>
+	<http security="none" pattern="/img/**"></http>
+
+	<!--页面的拦截规则-->
+	<http use-expressions="false">
+		<!-- 当前用户必须拥有ROLE_USER角色，才能访问根目录及子目录的所有资源 -->
+		<intercept-url pattern="/**" access="ROLE_ADMIN"/>
+		<!-- 开启表单登陆功能 -->
+		<form-login login-page="/login.html" default-target-url="/admin/index.html" authentication-failure-url="/login.html" always-use-default-target="true"/>
+		<!--关闭csrf验证-->
+		<csrf disabled="true"/>
+		<!--允许iframe-->
+		<headers>
+			<frame-options policy="SAMEORIGIN"/>
+		</headers>
+		<!--退出 logout-success-url -->
+		<logout logout-url="/logout" />
+	</http>
+
+	<!--认证管理器-->
+	<authentication-manager>
+		<authentication-provider>
+			<user-service>
+				<user name="admin" password="123456" authorities="ROLE_ADMIN"/>
+			</user-service>
+		</authentication-provider>
+	</authentication-manager>
+</beans:beans>
