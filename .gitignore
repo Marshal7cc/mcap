@@ -1,8 +1,18 @@
-##ignore this file##
+# Eclipse
+.classpath
+.project
+.settings/
 
-##directory##
-target
-.idea
-
-##file##
+# Intellij
+.idea/
 *.iml
+*.iws
+**/out
+
+# Mac
+.DS_Store
+
+# Maven
+**/target
+**/*.log
+**/*.tmp

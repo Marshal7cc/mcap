@@ -70,10 +70,11 @@
         <property name="suffix" value=".html"></property>
     </bean>
 
+
     <!-- 处理静态资源 -->
     <mvc:default-servlet-handler/>
 
-    <!-- <mvc:interceptors> <mvc:interceptor> <mvc:mapping path="/user/*" />
-        <bean class="com.marshalal.interceptor.UserInterceptor" /> </mvc:interceptor>
-        </mvc:interceptors> -->
+
+    <!--<mvc:interceptors>-->
+    <!--</mvc:interceptors>-->
 </beans>  
