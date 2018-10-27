@@ -48,8 +48,6 @@
 	<!--修复/WEB-INF/**/*依旧会被拦截的问题-->
 	<servlet-mapping>
 		<servlet-name>default</servlet-name>
-		<url-pattern>*.js</url-pattern>
-		<url-pattern>*.css</url-pattern>
 		<url-pattern>/WEB-INF/*</url-pattern>
 		<url-pattern>/WEB-INF/*/*</url-pattern>
 	</servlet-mapping>
