@@ -21,7 +21,7 @@ app.service("sysUserService",function($http){
     }
 
     //other opertions
-    this.getOptionList=function(){
-        return $http.get("../account/user/getOptionList");
+    this.getOptions=function(){
+        return $http.get("../account/user/getOptions");
     }
 });

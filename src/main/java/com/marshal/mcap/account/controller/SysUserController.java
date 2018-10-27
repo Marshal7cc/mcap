@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * Created with IntelliJ IDEA.
  * author: Marshal
@@ -51,5 +54,10 @@ public class SysUserController {
     @RequestMapping("/queryById")
     public SysUser queryById(@RequestParam("id")Long id){
         return sysUserService.queryById(id);
+    }
+
+    @RequestMapping("/getOptions")
+    public List<Map> getOptions(){
+        return sysUserService.getOptions();
     }
 }

@@ -42,4 +42,12 @@ app.controller("sysUserController",function ($scope,$controller,sysUserService) 
             }
         });
     }
+    //获取下拉框数据
+    //防止ajax异步导致为空，声明一个空的
+    $scope.sysUserOptions={data:[]};
+    $scope.getOptions=function () {
+        sysUserService.getOptions().success(function(data){
+            $scope.sysUserOptions={data:data};
+        });
+    }
 });

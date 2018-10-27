@@ -36,6 +36,12 @@
       </if>
     </where>
   </select>
+
+  <select id="getOptions" resultType="java.util.Map">
+    select user_id as id,user_name as text
+    from sys_user
+  </select>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />

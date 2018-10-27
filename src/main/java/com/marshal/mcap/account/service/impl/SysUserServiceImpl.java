@@ -9,6 +9,9 @@ import com.marshal.mcap.system.entity.ResponseData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * Created with IntelliJ IDEA.
  * author: Marshal
@@ -49,5 +52,10 @@ public class SysUserServiceImpl implements SysUserService {
         for(Long id :idList){
             sysUserMapper.deleteByPrimaryKey(id);
         }
+    }
+
+    @Override
+    public List<Map> getOptions() {
+        return sysUserMapper.getOptions();
     }
 }

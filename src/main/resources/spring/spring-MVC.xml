@@ -19,14 +19,8 @@
                 <property name="objectMapper">
                     <!--自定义转换方式-->
                     <bean class="com.marshal.mcap.core.json.JacksonMapper">
-                        <!-- 处理responseBody 里面日期类型 -->
-                        <property name="dateFormat">
-                            <bean class="java.text.SimpleDateFormat">
-                                <constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss"/>
-                            </bean>
-                        </property>
-                        <!-- 时区指定 -->
-                        <!--<property name="timeZone" value="GMT+8"/>-->
+                        <!--时区指定 -->
+                        <property name="timeZone" value="GMT+8"/>
                         <!-- 为null字段时不显示 -->
                         <property name="serializationInclusion">
                             <value type="com.fasterxml.jackson.annotation.JsonInclude.Include">NON_NULL</value>
@@ -62,7 +56,6 @@
     <!-- 处理静态资源 -->
     <!--.html-dispatchservlet-defaultservlet-->
     <mvc:default-servlet-handler/>
-
 
     <!--<mvc:interceptors>-->
     <!--</mvc:interceptors>-->
