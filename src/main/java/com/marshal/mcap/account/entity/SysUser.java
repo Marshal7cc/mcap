@@ -40,12 +40,6 @@ public class SysUser {
 
     private Date frozenDate;
 
-    private String passwordLifespanType;
-
-    private Long passwordLifespanDays;
-
-    private Long passwordLifespanTimes;
-
     private String description;
 
     public Long getUserId() {
@@ -150,30 +144,6 @@ public class SysUser {
 
     public void setFrozenDate(Date frozenDate) {
         this.frozenDate = frozenDate;
-    }
-
-    public String getPasswordLifespanType() {
-        return passwordLifespanType;
-    }
-
-    public void setPasswordLifespanType(String passwordLifespanType) {
-        this.passwordLifespanType = passwordLifespanType;
-    }
-
-    public Long getPasswordLifespanDays() {
-        return passwordLifespanDays;
-    }
-
-    public void setPasswordLifespanDays(Long passwordLifespanDays) {
-        this.passwordLifespanDays = passwordLifespanDays;
-    }
-
-    public Long getPasswordLifespanTimes() {
-        return passwordLifespanTimes;
-    }
-
-    public void setPasswordLifespanTimes(Long passwordLifespanTimes) {
-        this.passwordLifespanTimes = passwordLifespanTimes;
     }
 
     public String getDescription() {

@@ -15,16 +15,12 @@
     <result column="LAST_PASSWORD_UPDATE_DATE" property="lastPasswordUpdateDate" jdbcType="TIMESTAMP" />
     <result column="frozen_flag" property="frozenFlag" jdbcType="VARCHAR" />
     <result column="frozen_date" property="frozenDate" jdbcType="TIMESTAMP" />
-    <result column="password_lifespan_type" property="passwordLifespanType" jdbcType="VARCHAR" />
-    <result column="password_lifespan_days" property="passwordLifespanDays" jdbcType="BIGINT" />
-    <result column="password_lifespan_times" property="passwordLifespanTimes" jdbcType="BIGINT" />
     <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     USER_ID, USER_TYPE, USER_NAME, PASSWORD_ENCRYPTED, EMAIL, PHONE, START_ACTIVE_DATE, 
     END_ACTIVE_DATE, STATUS, LAST_LOGIN_DATE, LAST_PASSWORD_UPDATE_DATE, frozen_flag, 
-    frozen_date, password_lifespan_type, password_lifespan_days, password_lifespan_times, 
-    DESCRIPTION
+    frozen_date, DESCRIPTION
   </sql>
   <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.marshal.mcap.account.entity.SysUser">
     select
