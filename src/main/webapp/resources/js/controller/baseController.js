@@ -29,9 +29,14 @@ app.controller("baseController",function ($scope) {
         }
     }
 
+
+    /**
+     * 常用renderer函数
+     * @param jsonStr
+     * @returns {string}
+     */
     //把json字符串转换成正常展示
     $scope.jsonRenderer=function (jsonStr) {
-        debugger;
         var json=JSON.parse(jsonStr);
         var renderStr="";
         for(var i=0;i<json.length;i++){
@@ -41,5 +46,12 @@ app.controller("baseController",function ($scope) {
             renderStr+=json[i].text;
         }
         return renderStr;
+    }
+
+    $scope.sysUserStatusRender=function (status) {
+        if(status=="ACTV")
+            return "正常";
+        else
+            return "冻结";
     }
 });

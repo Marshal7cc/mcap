@@ -79,6 +79,7 @@
                 <th>账户有效期从</th>
                 <th>账户有效期至</th>
                 <th>最近一次登录</th>
+                <th>状态</th>
                 <th>操作</th>
             </tr>
             </thead>
@@ -92,6 +93,7 @@
                 <td>{{item.startActiveDate}}</td>
                 <td>{{item.endActiveDate}}</td>
                 <td>{{item.lastLoginDate}}</td>
+                <th>{{sysUserStatusRender(item.status)}}</th>
                 <td class="text-center">
                     <button ng-click="initForUpdate(item.userId)" type="button" class="btn btn-sm bg-olive"
                             data-toggle="modal" data-target="#editWindow">修改
@@ -121,25 +123,30 @@
                     <tr>
                         <td>用户姓名</td>
                         <td><input ng-model="sysUser.userName" class="form-control" placeholder="用户姓名"></td>
-                        <td>电子邮箱</td>
-                        <td><input ng-model="sysUser.email" class="form-control" placeholder="电子邮箱"></td>
                     </tr>
                     <tr>
                         <td>联系方式</td>
-                        <td><input ng-model="sysUser.phone" class="form-control" placeholder="联系方式"></td>
+                        <td>
+                            <input ng-model="sysUser.phone" class="form-control" placeholder="联系方式">
+                        </td>
+                        <td>电子邮箱</td>
+                        <td>
+                            <input ng-model="sysUser.email" class="form-control" placeholder="电子邮箱">
+                        </td>
+
                     </tr>
                     <tr>
-                        <td>用户</td>
+                        <td>账户有效期从</td>
                         <!--<td><input select2 config="sysUserOptions" ng-model="sysUser.userType" class="form-control" placeholder="联系方式"></td>-->
-                        <td>
-                            <wui-date id="lastLoginDate" format="yyyy-mm-dd HH:mm:ss" placeholder="请选择或输入日期"
-                                      btns="{'ok':'确定','now':'此刻'}" ng-model="sysUser.lastLoginDate">
-                            </wui-date>
-                        </td>
-                        <td>用户</td>
                         <td>
                             <wui-date id="startActiveDate" format="yyyy-mm-dd" placeholder="请选择或输入日期"
                                       btns="{'ok':'确定','now':'此刻'}" ng-model="sysUser.startActiveDate">
+                            </wui-date>
+                        </td>
+                        <td>账户有效期至</td>
+                        <td>
+                            <wui-date id="endActiveDate" format="yyyy-mm-dd" placeholder="请选择或输入日期"
+                                      btns="{'ok':'确定','now':'此刻'}" ng-model="sysUser.endActiveDate">
                             </wui-date>
                         </td>
                     </tr>

@@ -53,16 +53,13 @@
       PASSWORD_ENCRYPTED, EMAIL, PHONE, 
       START_ACTIVE_DATE, END_ACTIVE_DATE, STATUS, 
       LAST_LOGIN_DATE, LAST_PASSWORD_UPDATE_DATE, 
-      frozen_flag, frozen_date, password_lifespan_type, 
-      password_lifespan_days, password_lifespan_times, 
+      frozen_flag, frozen_date
       DESCRIPTION)
     values (#{userId,jdbcType=BIGINT}, #{userType,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
       #{passwordEncrypted,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
       #{startActiveDate,jdbcType=DATE}, #{endActiveDate,jdbcType=DATE}, #{status,jdbcType=VARCHAR}, 
       #{lastLoginDate,jdbcType=TIMESTAMP}, #{lastPasswordUpdateDate,jdbcType=TIMESTAMP}, 
-      #{frozenFlag,jdbcType=VARCHAR}, #{frozenDate,jdbcType=TIMESTAMP}, #{passwordLifespanType,jdbcType=VARCHAR}, 
-      #{passwordLifespanDays,jdbcType=BIGINT}, #{passwordLifespanTimes,jdbcType=BIGINT}, 
-      #{description,jdbcType=VARCHAR})
+      #{frozenFlag,jdbcType=VARCHAR}, #{frozenDate,jdbcType=TIMESTAMP},#{description,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.marshal.mcap.account.entity.SysUser" >
     insert into sys_user
@@ -105,15 +102,6 @@
       </if>
       <if test="frozenDate != null" >
         frozen_date,
-      </if>
-      <if test="passwordLifespanType != null" >
-        password_lifespan_type,
-      </if>
-      <if test="passwordLifespanDays != null" >
-        password_lifespan_days,
-      </if>
-      <if test="passwordLifespanTimes != null" >
-        password_lifespan_times,
       </if>
       <if test="description != null" >
         DESCRIPTION,
@@ -212,15 +200,6 @@
       <if test="frozenDate != null" >
         frozen_date = #{frozenDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="passwordLifespanType != null" >
-        password_lifespan_type = #{passwordLifespanType,jdbcType=VARCHAR},
-      </if>
-      <if test="passwordLifespanDays != null" >
-        password_lifespan_days = #{passwordLifespanDays,jdbcType=BIGINT},
-      </if>
-      <if test="passwordLifespanTimes != null" >
-        password_lifespan_times = #{passwordLifespanTimes,jdbcType=BIGINT},
-      </if>
       <if test="description != null" >
         DESCRIPTION = #{description,jdbcType=VARCHAR},
       </if>
@@ -241,9 +220,6 @@
       LAST_PASSWORD_UPDATE_DATE = #{lastPasswordUpdateDate,jdbcType=TIMESTAMP},
       frozen_flag = #{frozenFlag,jdbcType=VARCHAR},
       frozen_date = #{frozenDate,jdbcType=TIMESTAMP},
-      password_lifespan_type = #{passwordLifespanType,jdbcType=VARCHAR},
-      password_lifespan_days = #{passwordLifespanDays,jdbcType=BIGINT},
-      password_lifespan_times = #{passwordLifespanTimes,jdbcType=BIGINT},
       DESCRIPTION = #{description,jdbcType=VARCHAR}
     where USER_ID = #{userId,jdbcType=BIGINT}
   </update>
