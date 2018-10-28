@@ -1,8 +1,10 @@
 package com.marshal.mcap.account.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.validator.constraints.Email;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.Pattern;
 import java.util.Date;
 
 public class SysUser {
@@ -14,8 +16,10 @@ public class SysUser {
 
     private String passwordEncrypted;
 
+    @Email
     private String email;
 
+    @Pattern(regexp = "^[1][3,4,5,7,8][0-9]{9}$",message = "手机号码格式错误")
     private String phone;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
