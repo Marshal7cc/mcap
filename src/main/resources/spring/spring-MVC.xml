@@ -42,6 +42,11 @@
     <context:component-scan base-package="com.marshal.**.service.impl"/>
     <context:component-scan base-package="com.marshal.**.validator"/>
 
+    <!--<mvc:resources mapping="/editor-app/**" location="/editor-app/" />-->
+    <!--<mvc:resources mapping="/diagram-viewer/**" location="/diagram-viewer/" />-->
+
+    <context:component-scan base-package="org.activiti.rest.service.api"/>
+
 
     <bean id="multipartResolver"
           class="org.springframework.web.multipart.support.StandardServletMultipartResolver"/>
@@ -57,6 +62,8 @@
     <!-- 处理静态资源 -->
     <!--.html-dispatchservlet-defaultservlet-->
     <mvc:default-servlet-handler/>
+    <mvc:resources mapping="/editor-app/**" location="/editor-app/" />
+    <mvc:resources mapping="/diagram-viewer/**" location="/diagram-viewer/" />
 
     <!--<mvc:interceptors>-->
     <!--</mvc:interceptors>-->

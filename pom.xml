@@ -18,6 +18,8 @@
         <pageHelper.version>4.0.0</pageHelper.version>
         <spring-security.version>4.0.4.RELEASE</spring-security.version>
         <quartz.version>2.2.3</quartz.version>
+        <activiti.version>6.0.0</activiti.version>
+        <drools.version>5.6.0.Final</drools.version>
         <mysql-connector.version>5.1.40</mysql-connector.version>
         <servlet.version>3.0.1</servlet.version>
         <fastjson.version>1.2.47</fastjson.version>
@@ -106,6 +108,59 @@
             <version>${quartz.version}</version>
         </dependency>
 
+        <!--Activiti相关-->
+        <dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-engine</artifactId>
+            <version>${activiti.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-spring</artifactId>
+            <version>${activiti.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-bpmn-converter</artifactId>
+            <version>${activiti.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-json-converter</artifactId>
+            <version>${activiti.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-rest</artifactId>
+            <version>${activiti.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.xmlgraphics</groupId>
+            <artifactId>batik-codec</artifactId>
+            <version>1.7</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.xmlgraphics</groupId>
+            <artifactId>batik-transcoder</artifactId>
+            <version>1.7</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.xmlgraphics</groupId>
+            <artifactId>xmlgraphics-commons</artifactId>
+            <version>2.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.drools</groupId>
+            <artifactId>drools-compiler</artifactId>
+            <version>${drools.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.drools</groupId>
+            <artifactId>drools-core</artifactId>
+            <version>${drools.version}</version>
+        </dependency>
+
         <!-- json -->
         <dependency>
             <groupId>com.alibaba</groupId>
@@ -156,7 +211,6 @@
             <artifactId>hibernate-validator</artifactId>
             <version>${hibernate-validation.version}</version>
         </dependency>
-
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>

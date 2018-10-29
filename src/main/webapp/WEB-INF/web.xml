@@ -50,6 +50,12 @@
 		<servlet-name>default</servlet-name>
 		<url-pattern>/WEB-INF/*</url-pattern>
 		<url-pattern>/WEB-INF/*/*</url-pattern>
+		<url-pattern>/editor-app/editor.html</url-pattern>
+		<url-pattern>/editor-app/*/*</url-pattern>
+		<url-pattern>/editor-app/*/*/*</url-pattern>
+		<url-pattern>/editor-app/configuration/properties/*</url-pattern>
+		<url-pattern>/editor-app/partials/stencil-item-template.html</url-pattern>
+		<url-pattern>/diagram-viewer/index.html</url-pattern>
 	</servlet-mapping>
 
 	<!-- 编码过滤 -->
