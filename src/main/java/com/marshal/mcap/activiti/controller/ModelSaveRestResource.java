@@ -22,7 +22,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 
 @Controller
-@RequestMapping(value = {"/wfl", "/api/wfl"})
 public class ModelSaveRestResource implements ModelDataJsonConstants {
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(ModelSaveRestResource.class);

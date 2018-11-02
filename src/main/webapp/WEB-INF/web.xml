@@ -52,6 +52,7 @@
 		<url-pattern>/WEB-INF/*/*</url-pattern>
 		<url-pattern>/editor-app/editor.html</url-pattern>
 		<url-pattern>/editor-app/*/*</url-pattern>
+		<url-pattern>/editor-app/popups/*</url-pattern>
 		<url-pattern>/editor-app/*/*/*</url-pattern>
 		<url-pattern>/editor-app/configuration/properties/*</url-pattern>
 		<url-pattern>/editor-app/partials/stencil-item-template.html</url-pattern>

@@ -4,10 +4,18 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
                            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+    <context:property-placeholder location="classpath:config.properties"/>
+
     <!--quartz配置-->
     <bean name="quartzScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
         <property name="dataSource" ref="dataSource" />
+        <!-- DO NOT AUTO STARTUP DURING LOCAL DEV TEST -->
+        <property name="autoStartup" value="${job.autoStartup}" />
         <property name="applicationContextSchedulerContextKey" value="applicationContext" />
         <property name="configLocation" value="classpath:quartz.properties" />
     </bean>
+
+    <!--for inject to jobRunningListener-->
+    <bean name="jobRunningInfoService" class="com.marshal.mcap.quartz.service.impl.JobRunningInfoServiceImpl"/>
 </beans>
