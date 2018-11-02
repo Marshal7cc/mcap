@@ -1,13 +1,17 @@
 package com.marshal.mcap.account.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.marshal.mcap.system.constants.BaseConstants;
 import org.hibernate.validator.constraints.Email;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.Pattern;
 import java.util.Date;
+import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 
+@Table(name = "sys_user")
 public class SysUser {
+    @Id
+    @GeneratedValue(generator = "JDBC")
     private Long userId;
 
     private String userType;
@@ -19,25 +23,21 @@ public class SysUser {
     @Email
     private String email;
 
-    @Pattern(regexp = "^[1][3,4,5,7,8][0-9]{9}$",message = "手机号码格式错误")
+    @Pattern(regexp = BaseConstants.PATTERN_PHONE_REGEX,message = BaseConstants.PHONE_NOT_VALID)
     private String phone;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = BaseConstants.DATE_FORMAT)
     private Date startActiveDate;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = BaseConstants.DATE_FORMAT)
     private Date endActiveDate;
 
     private String status;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = BaseConstants.DATE_TIME_FORMAT)
     private Date lastLoginDate;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = BaseConstants.DATE_TIME_FORMAT)
     private Date lastPasswordUpdateDate;
 
     private String frozenFlag;

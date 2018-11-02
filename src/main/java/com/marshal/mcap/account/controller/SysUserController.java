@@ -1,5 +1,6 @@
 package com.marshal.mcap.account.controller;
 
+import com.github.pagehelper.Page;
 import com.marshal.mcap.account.entity.SysUser;
 import com.marshal.mcap.account.service.SysUserService;
 import com.marshal.mcap.system.controller.BaseController;
@@ -29,7 +30,8 @@ public class SysUserController extends BaseController {
 
     @RequestMapping("/query")
     public ResponseData query(@RequestBody SysUser condition, int pageNum, int pageSize) {
-        return sysUserService.query(condition, pageNum, pageSize);
+        List<SysUser> list = sysUserService.select(condition, pageNum, pageSize);
+        return new ResponseData(list);
     }
 
     @RequestMapping("/save")
@@ -39,7 +41,6 @@ public class SysUserController extends BaseController {
         }
         sysUserService.save(sysUser);
         return new ResponseData(true, "保存成功");
-
     }
 
     @RequestMapping("/delete")
@@ -49,12 +50,12 @@ public class SysUserController extends BaseController {
     }
 
     @RequestMapping("/queryById")
-    public SysUser queryById(@RequestParam("id") Long id) {
-        return sysUserService.queryById(id);
+    public SysUser queryById(@RequestParam Long id) {
+        return sysUserService.selectByPrimaryKey(id);
     }
 
     @RequestMapping("/getOptions")
     public List<Map> getOptions() {
-        return sysUserService.getOptions();
+        return sysUserService.getUserOptions();
     }
 }

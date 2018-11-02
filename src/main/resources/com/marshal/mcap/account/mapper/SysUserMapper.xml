@@ -1,226 +1,32 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.marshal.mcap.account.mapper.SysUserMapper" >
-  <resultMap id="BaseResultMap" type="com.marshal.mcap.account.entity.SysUser" >
-    <id column="USER_ID" property="userId" jdbcType="BIGINT" />
-    <result column="USER_TYPE" property="userType" jdbcType="VARCHAR" />
-    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
-    <result column="PASSWORD_ENCRYPTED" property="passwordEncrypted" jdbcType="VARCHAR" />
-    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
-    <result column="PHONE" property="phone" jdbcType="VARCHAR" />
-    <result column="START_ACTIVE_DATE" property="startActiveDate" jdbcType="DATE" />
-    <result column="END_ACTIVE_DATE" property="endActiveDate" jdbcType="DATE" />
-    <result column="STATUS" property="status" jdbcType="VARCHAR" />
-    <result column="LAST_LOGIN_DATE" property="lastLoginDate" jdbcType="TIMESTAMP" />
-    <result column="LAST_PASSWORD_UPDATE_DATE" property="lastPasswordUpdateDate" jdbcType="TIMESTAMP" />
-    <result column="frozen_flag" property="frozenFlag" jdbcType="VARCHAR" />
-    <result column="frozen_date" property="frozenDate" jdbcType="TIMESTAMP" />
-    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
-  </resultMap>
-  <sql id="Base_Column_List" >
-    USER_ID, USER_TYPE, USER_NAME, PASSWORD_ENCRYPTED, EMAIL, PHONE, START_ACTIVE_DATE, 
-    END_ACTIVE_DATE, STATUS, LAST_LOGIN_DATE, LAST_PASSWORD_UPDATE_DATE, frozen_flag, 
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.marshal.mcap.account.mapper.SysUserMapper">
+    <resultMap id="BaseResultMap" type="com.marshal.mcap.account.entity.SysUser">
+        <id column="USER_ID" jdbcType="BIGINT" property="userId"/>
+        <result column="USER_TYPE" jdbcType="VARCHAR" property="userType"/>
+        <result column="USER_NAME" jdbcType="VARCHAR" property="userName"/>
+        <result column="PASSWORD_ENCRYPTED" jdbcType="VARCHAR" property="passwordEncrypted"/>
+        <result column="EMAIL" jdbcType="VARCHAR" property="email"/>
+        <result column="PHONE" jdbcType="VARCHAR" property="phone"/>
+        <result column="START_ACTIVE_DATE" jdbcType="DATE" property="startActiveDate"/>
+        <result column="END_ACTIVE_DATE" jdbcType="DATE" property="endActiveDate"/>
+        <result column="STATUS" jdbcType="VARCHAR" property="status"/>
+        <result column="LAST_LOGIN_DATE" jdbcType="TIMESTAMP" property="lastLoginDate"/>
+        <result column="LAST_PASSWORD_UPDATE_DATE" jdbcType="TIMESTAMP" property="lastPasswordUpdateDate"/>
+        <result column="frozen_flag" jdbcType="VARCHAR" property="frozenFlag"/>
+        <result column="frozen_date" jdbcType="TIMESTAMP" property="frozenDate"/>
+        <result column="DESCRIPTION" jdbcType="VARCHAR" property="description"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    USER_ID, USER_TYPE, USER_NAME, PASSWORD_ENCRYPTED, EMAIL, PHONE, START_ACTIVE_DATE,
+    END_ACTIVE_DATE, STATUS, LAST_LOGIN_DATE, LAST_PASSWORD_UPDATE_DATE, frozen_flag,
     frozen_date, DESCRIPTION
   </sql>
-  <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.marshal.mcap.account.entity.SysUser">
-    select
-    <include refid="Base_Column_List" />
-    from sys_user
-    <where>
-      <if test="userName!=null">
-        user_name like concat('%',#{userName},'%')
-      </if>
-    </where>
-  </select>
 
-  <select id="getOptions" resultType="java.util.Map">
+    <select id="getUserOptions" resultType="java.util.Map">
     select user_id as id,user_name as text
     from sys_user
   </select>
 
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select 
-    <include refid="Base_Column_List" />
-    from sys_user
-    where USER_ID = #{userId,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from sys_user
-    where USER_ID = #{userId,jdbcType=BIGINT}
-  </delete>
-  <insert id="insert" parameterType="com.marshal.mcap.account.entity.SysUser" >
-    insert into sys_user (USER_ID, USER_TYPE, USER_NAME, 
-      PASSWORD_ENCRYPTED, EMAIL, PHONE, 
-      START_ACTIVE_DATE, END_ACTIVE_DATE, STATUS, 
-      LAST_LOGIN_DATE, LAST_PASSWORD_UPDATE_DATE, 
-      frozen_flag, frozen_date
-      DESCRIPTION)
-    values (#{userId,jdbcType=BIGINT}, #{userType,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
-      #{passwordEncrypted,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
-      #{startActiveDate,jdbcType=DATE}, #{endActiveDate,jdbcType=DATE}, #{status,jdbcType=VARCHAR}, 
-      #{lastLoginDate,jdbcType=TIMESTAMP}, #{lastPasswordUpdateDate,jdbcType=TIMESTAMP}, 
-      #{frozenFlag,jdbcType=VARCHAR}, #{frozenDate,jdbcType=TIMESTAMP},#{description,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.marshal.mcap.account.entity.SysUser" >
-    insert into sys_user
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="userId != null" >
-        USER_ID,
-      </if>
-      <if test="userType != null" >
-        USER_TYPE,
-      </if>
-      <if test="userName != null" >
-        USER_NAME,
-      </if>
-      <if test="passwordEncrypted != null" >
-        PASSWORD_ENCRYPTED,
-      </if>
-      <if test="email != null" >
-        EMAIL,
-      </if>
-      <if test="phone != null" >
-        PHONE,
-      </if>
-      <if test="startActiveDate != null" >
-        START_ACTIVE_DATE,
-      </if>
-      <if test="endActiveDate != null" >
-        END_ACTIVE_DATE,
-      </if>
-      <if test="status != null" >
-        STATUS,
-      </if>
-      <if test="lastLoginDate != null" >
-        LAST_LOGIN_DATE,
-      </if>
-      <if test="lastPasswordUpdateDate != null" >
-        LAST_PASSWORD_UPDATE_DATE,
-      </if>
-      <if test="frozenFlag != null" >
-        frozen_flag,
-      </if>
-      <if test="frozenDate != null" >
-        frozen_date,
-      </if>
-      <if test="description != null" >
-        DESCRIPTION,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="userId != null" >
-        #{userId,jdbcType=BIGINT},
-      </if>
-      <if test="userType != null" >
-        #{userType,jdbcType=VARCHAR},
-      </if>
-      <if test="userName != null" >
-        #{userName,jdbcType=VARCHAR},
-      </if>
-      <if test="passwordEncrypted != null" >
-        #{passwordEncrypted,jdbcType=VARCHAR},
-      </if>
-      <if test="email != null" >
-        #{email,jdbcType=VARCHAR},
-      </if>
-      <if test="phone != null" >
-        #{phone,jdbcType=VARCHAR},
-      </if>
-      <if test="startActiveDate != null" >
-        #{startActiveDate,jdbcType=DATE},
-      </if>
-      <if test="endActiveDate != null" >
-        #{endActiveDate,jdbcType=DATE},
-      </if>
-      <if test="status != null" >
-        #{status,jdbcType=VARCHAR},
-      </if>
-      <if test="lastLoginDate != null" >
-        #{lastLoginDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="lastPasswordUpdateDate != null" >
-        #{lastPasswordUpdateDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="frozenFlag != null" >
-        #{frozenFlag,jdbcType=VARCHAR},
-      </if>
-      <if test="frozenDate != null" >
-        #{frozenDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="passwordLifespanType != null" >
-        #{passwordLifespanType,jdbcType=VARCHAR},
-      </if>
-      <if test="passwordLifespanDays != null" >
-        #{passwordLifespanDays,jdbcType=BIGINT},
-      </if>
-      <if test="passwordLifespanTimes != null" >
-        #{passwordLifespanTimes,jdbcType=BIGINT},
-      </if>
-      <if test="description != null" >
-        #{description,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.marshal.mcap.account.entity.SysUser" >
-    update sys_user
-    <set >
-      <if test="userType != null" >
-        USER_TYPE = #{userType,jdbcType=VARCHAR},
-      </if>
-      <if test="userName != null" >
-        USER_NAME = #{userName,jdbcType=VARCHAR},
-      </if>
-      <if test="passwordEncrypted != null" >
-        PASSWORD_ENCRYPTED = #{passwordEncrypted,jdbcType=VARCHAR},
-      </if>
-      <if test="email != null" >
-        EMAIL = #{email,jdbcType=VARCHAR},
-      </if>
-      <if test="phone != null" >
-        PHONE = #{phone,jdbcType=VARCHAR},
-      </if>
-      <if test="startActiveDate != null" >
-        START_ACTIVE_DATE = #{startActiveDate,jdbcType=DATE},
-      </if>
-      <if test="endActiveDate != null" >
-        END_ACTIVE_DATE = #{endActiveDate,jdbcType=DATE},
-      </if>
-      <if test="status != null" >
-        STATUS = #{status,jdbcType=VARCHAR},
-      </if>
-      <if test="lastLoginDate != null" >
-        LAST_LOGIN_DATE = #{lastLoginDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="lastPasswordUpdateDate != null" >
-        LAST_PASSWORD_UPDATE_DATE = #{lastPasswordUpdateDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="frozenFlag != null" >
-        frozen_flag = #{frozenFlag,jdbcType=VARCHAR},
-      </if>
-      <if test="frozenDate != null" >
-        frozen_date = #{frozenDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="description != null" >
-        DESCRIPTION = #{description,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where USER_ID = #{userId,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.marshal.mcap.account.entity.SysUser" >
-    update sys_user
-    set USER_TYPE = #{userType,jdbcType=VARCHAR},
-      USER_NAME = #{userName,jdbcType=VARCHAR},
-      PASSWORD_ENCRYPTED = #{passwordEncrypted,jdbcType=VARCHAR},
-      EMAIL = #{email,jdbcType=VARCHAR},
-      PHONE = #{phone,jdbcType=VARCHAR},
-      START_ACTIVE_DATE = #{startActiveDate,jdbcType=DATE},
-      END_ACTIVE_DATE = #{endActiveDate,jdbcType=DATE},
-      STATUS = #{status,jdbcType=VARCHAR},
-      LAST_LOGIN_DATE = #{lastLoginDate,jdbcType=TIMESTAMP},
-      LAST_PASSWORD_UPDATE_DATE = #{lastPasswordUpdateDate,jdbcType=TIMESTAMP},
-      frozen_flag = #{frozenFlag,jdbcType=VARCHAR},
-      frozen_date = #{frozenDate,jdbcType=TIMESTAMP},
-      DESCRIPTION = #{description,jdbcType=VARCHAR}
-    where USER_ID = #{userId,jdbcType=BIGINT}
-  </update>
 </mapper>

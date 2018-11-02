@@ -15,6 +15,7 @@
         <spring.version>4.3.18.RELEASE</spring.version>
         <mybatis.version>3.4.6</mybatis.version>
         <mybatis-spring.version>1.3.2</mybatis-spring.version>
+        <common-mybatis.version>4.0.4</common-mybatis.version>
         <pageHelper.version>4.0.0</pageHelper.version>
         <spring-security.version>4.0.4.RELEASE</spring-security.version>
         <quartz.version>2.2.3</quartz.version>
@@ -74,6 +75,12 @@
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis-spring</artifactId>
             <version>${mybatis-spring.version}</version>
+        </dependency>
+        <!--mybatis通用mapper-->
+        <dependency>
+            <groupId>tk.mybatis</groupId>
+            <artifactId>mapper</artifactId>
+            <version>${common-mybatis.version}</version>
         </dependency>
 
         <!--pageHelper-->

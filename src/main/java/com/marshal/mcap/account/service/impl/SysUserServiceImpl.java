@@ -6,6 +6,7 @@ import com.marshal.mcap.account.entity.SysUser;
 import com.marshal.mcap.account.mapper.SysUserMapper;
 import com.marshal.mcap.account.service.SysUserService;
 import com.marshal.mcap.system.entity.ResponseData;
+import com.marshal.mcap.system.service.impl.BaseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,36 +27,34 @@ public class SysUserServiceImpl implements SysUserService {
     SysUserMapper sysUserMapper;
 
     @Override
-    public ResponseData query(SysUser condition, int pageNum, int pageSize) {
+    public List<SysUser> select(SysUser condition, int pageNum, int pageSize) {
         PageHelper.startPage(pageNum,pageSize);
-        Page<SysUser> page = (Page<SysUser>)sysUserMapper.selectByCondition(condition);
-        return new ResponseData(page.getTotal(),page.getResult());
+        return sysUserMapper.select(condition);
     }
 
     @Override
-    public SysUser queryById(Long id) {
+    public SysUser selectByPrimaryKey(Long id) {
         return sysUserMapper.selectByPrimaryKey(id);
     }
 
-
     @Override
     public void save(SysUser SysUser) {
-        if(SysUser.getUserId()!=null){
+        if (SysUser.getUserId() != null) {
             sysUserMapper.updateByPrimaryKey(SysUser);
-        }else{
+        } else {
             sysUserMapper.insert(SysUser);
         }
     }
 
     @Override
     public void delete(Long[] idList) {
-        for(Long id :idList){
+        for (Long id : idList) {
             sysUserMapper.deleteByPrimaryKey(id);
         }
     }
 
     @Override
-    public List<Map> getOptions() {
-        return sysUserMapper.getOptions();
+    public List<Map> getUserOptions() {
+        return sysUserMapper.getUserOptions();
     }
 }

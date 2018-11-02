@@ -1,43 +1,56 @@
 package com.marshal.mcap.system.entity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.github.pagehelper.Page;
 
 import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
  * author: Marshal
  * Date: 2018/10/26
  * Time: 14:37
- * Description:返回数据
+ * Description:标准返回数据格式
  */
 public class ResponseData implements Serializable {
+    /**
+     * 记录总数for page
+     */
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private long total;
+
+    /**
+     * 返回数据list
+     */
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private List rows;
+
+    /**
+     * 状态
+     */
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private boolean success;
+
+    /**
+     * 提示信息
+     */
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String message;
 
     public ResponseData() {
     }
 
-    public ResponseData(long total, List rows) {
-        this.total = total;
-        this.rows = rows;
+    /**
+     * 传入list，设置记录总数和数据列表信息
+     * @param rows
+     */
+    public ResponseData(List rows){
+        Page<?> page = (Page<?>)rows;
+        this.rows=rows;
+        this.total=page.getTotal();
     }
 
     public ResponseData(boolean success, String message) {
-        this.success = success;
-        this.message = message;
-    }
-
-    public ResponseData(long total, List rows, boolean success, String message) {
-        this.total = total;
-        this.rows = rows;
         this.success = success;
         this.message = message;
     }
