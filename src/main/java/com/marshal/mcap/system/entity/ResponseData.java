@@ -26,10 +26,10 @@ public class ResponseData implements Serializable {
     private List rows;
 
     /**
-     * 状态
+     * 状态,默认为true
      */
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private boolean success;
+    private boolean success=true;
 
     /**
      * 提示信息

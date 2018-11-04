@@ -40,6 +40,7 @@ public class JobRunningInfo {
 
     @JsonFormat(pattern = BaseConstants.DATE_TIME_FORMAT)
     @Column(name = "FIRE_TIME")
+    @OrderBy("desc")
     private Date fireTime;
 
     @JsonFormat(pattern = BaseConstants.DATE_TIME_FORMAT)

@@ -1,7 +1,11 @@
 package com.marshal.mcap.quartz.controller;
 
+import com.marshal.mcap.quartz.entity.JobCreateInfo;
+import com.marshal.mcap.quartz.entity.JobDetails;
 import com.marshal.mcap.quartz.entity.JobRunningInfo;
 import com.marshal.mcap.quartz.service.JobRunningInfoService;
+import com.marshal.mcap.quartz.service.QuartzService;
+import com.marshal.mcap.system.controller.BaseController;
 import com.marshal.mcap.system.entity.ResponseData;
 import org.quartz.JobDetail;
 import org.quartz.Scheduler;
@@ -12,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Arrays;
+
 import static org.quartz.JobBuilder.newJob;
 import static org.quartz.SimpleScheduleBuilder.simpleSchedule;
 import static org.quartz.TriggerBuilder.newTrigger;
@@ -25,38 +32,86 @@ import static org.quartz.TriggerBuilder.newTrigger;
  */
 @RestController
 @RequestMapping("/quartz")
-public class QuartzController {
+public class QuartzController extends BaseController {
 
     @Autowired
-    Scheduler scheduler;
+    QuartzService quartzService;
 
     @Autowired
     JobRunningInfoService jobRunningInfoService;
 
-    @RequestMapping("/test")
-    public void demo() throws SchedulerException {
-        // define the job and tie it to our HelloJob class
-        JobDetail job = newJob(com.marshal.mcap.quartz.job.HelloJob.class)
-                .withIdentity("job1", "group1")
-                .usingJobData("test1","helloTest1")
-                .usingJobData("testD",3.14F)
-                .build();
+    /**
+     * 启动调度器
+     *
+     * @return
+     * @throws SchedulerException
+     */
+    @RequestMapping("/scheduler/startup")
+    public ResponseData startup() throws SchedulerException {
+        if (quartzService.startup()) {
+            return new ResponseData(true, "启动成功！");
+        }
+        return new ResponseData(false, "已经启动！请勿重复操作！");
+    }
 
-        // Trigger the job to run now, and then repeat every 40 seconds
-        Trigger trigger = newTrigger()
-                .withIdentity("trigger1", "group1")
-                .startNow()
-                .withSchedule(simpleSchedule()
-                        .withIntervalInSeconds(10)
-                        .repeatForever())
-                .build();
+    @RequestMapping("/scheduler/standby")
+    public ResponseData standby() throws SchedulerException {
+        if (quartzService.standby()) {
+            return new ResponseData(true, "关闭成功！");
+        }
+        return new ResponseData(false, "已经关闭，请勿重复操作！");
+    }
 
-        // Tell quartz to schedule the job using our trigger
-        scheduler.scheduleJob(job, trigger);
+
+
+    /**
+     * 获取jobDetail信息
+     *
+     * @param condition
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @RequestMapping("/jobDetail/query")
+    public ResponseData queryJobDetail(@RequestBody JobDetails condition,
+                                       @RequestParam("pageNum") int pageNum,
+                                       @RequestParam("pageSize") int pageSize) {
+        return new ResponseData(quartzService.queryJobDetail(condition, pageNum, pageSize));
+    }
+
+    @RequestMapping("/job/pauseJob")
+    public ResponseData pauseJob(@RequestParam String jobName, @RequestParam String jobGroup) throws SchedulerException {
+        quartzService.pauseJob(jobName, jobGroup);
+        return new ResponseData(true, "暂停成功");
+
+    }
+
+    @RequestMapping("/job/resumeJob")
+    public ResponseData resumeJob(@RequestParam String jobName, @RequestParam String jobGroup) throws SchedulerException {
+        quartzService.resumeJob(jobName, jobGroup);
+        return new ResponseData(true, "恢复成功");
+    }
+
+    @RequestMapping("/job/deleteJob")
+    public ResponseData deleteJob(@RequestParam String jobName, @RequestParam String jobGroup) throws SchedulerException {
+        quartzService.deleteJob(jobName, jobGroup);
+        return new ResponseData(true, "删除成功");
+    }
+
+    @RequestMapping("/job/createJob")
+    public ResponseData resumeJob(@RequestBody JobCreateInfo jobCreateInfo) throws Exception {
+        if (!getValidator().isValid(jobCreateInfo)) {
+            return new ResponseData(false, getValidator().getErrors(jobCreateInfo));
+        }
+        jobCreateInfo.setTriggerGroup(jobCreateInfo.getJobGroup());
+        jobCreateInfo.setTriggerName(jobCreateInfo.getJobName()+"_trigger");
+        quartzService.createJob(jobCreateInfo);
+        return new ResponseData(true,"新增成功!");
     }
 
     /**
      * 获取任务执行记录
+     *
      * @param condition
      * @param pageNum
      * @param pageSize
@@ -65,7 +120,8 @@ public class QuartzController {
     @RequestMapping("/jobRunningInfo/query")
     public ResponseData queryJobRunningInfo(@RequestBody JobRunningInfo condition,
                                             @RequestParam("pageNum") int pageNum,
-                                            @RequestParam("pageSize") int pageSize){
-        return new ResponseData(jobRunningInfoService.queryJobRunningInfo(condition,pageNum,pageSize));
+                                            @RequestParam("pageSize") int pageSize) {
+        return new ResponseData(jobRunningInfoService.queryJobRunningInfo(condition, pageNum, pageSize));
     }
+
 }
