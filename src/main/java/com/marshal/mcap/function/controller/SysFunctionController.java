@@ -21,16 +21,24 @@ public class SysFunctionController {
     @Autowired
     SysFunctionService sysFunctionService;
 
+    /**
+     * 获取菜单
+     * @return
+     */
     @RequestMapping("/getMenus")
-    public List<SysFunction> getMenus(){
-        List<SysFunction> topFunctionList = sysFunctionService.selectTopFunction();
+    public List<SysFunction> getMenuList(){
+        List<SysFunction> topFunctionList = sysFunctionService.selectTopFunctions();
         getChildFunctions(topFunctionList);
         return topFunctionList;
     }
-
-    public List<SysFunction> getChildFunctions(List<SysFunction> topFunctionList){
-        for(SysFunction item :topFunctionList){
-            List<SysFunction> childList = sysFunctionService.selectChildFunction(item.getFunctionId());
+    /**
+     * 递归填充最外层菜单的子菜单
+     * @param functionList
+     * @return
+     */
+    public List<SysFunction> getChildFunctions(List<SysFunction> functionList){
+        for(SysFunction item :functionList){
+            List<SysFunction> childList = sysFunctionService.selectChildFunctions(item.getFunctionId());
             if(childList!=null&&childList.size()>0){
                 item.setChildFunctions(childList);
                 getChildFunctions(childList);
@@ -38,6 +46,6 @@ public class SysFunctionController {
                 continue;
             }
         }
-        return topFunctionList;
+        return functionList;
     }
 }

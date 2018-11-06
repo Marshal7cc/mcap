@@ -20,7 +20,7 @@
     RESOURCE_ID,PARENT_FUNCTION_ID,ENABLE_FLAG,FUNCTION_SEQUENCE
   </sql>
 
-  <select id="selectTopFunction" resultType="com.marshal.mcap.function.entity.SysFunction">
+  <select id="selectTopFunctions" resultType="com.marshal.mcap.function.entity.SysFunction">
     select
     sf.function_id,sf.function_name,sf.function_icon,sr.url
     from
@@ -30,7 +30,7 @@
     parent_function_id is null or parent_function_id =''
   </select>
 
-  <select id="selectChildFunction" parameterType="java.lang.Long" resultType="com.marshal.mcap.function.entity.SysFunction">
+  <select id="selectChildFunctions" parameterType="java.lang.Long" resultType="com.marshal.mcap.function.entity.SysFunction">
     select
     sf.function_id,sf.function_name,sf.function_icon,sr.url
     from
@@ -40,12 +40,4 @@
     parent_function_id=#{functionId}
   </select>
 
-  <select id="selectChildFunctionCount" parameterType="java.lang.Long" resultType="java.lang.Integer">
-    select
-    count(*)
-    from
-    sys_function
-    where
-    parent_function_id=#{functionId}
-  </select>
 </mapper>

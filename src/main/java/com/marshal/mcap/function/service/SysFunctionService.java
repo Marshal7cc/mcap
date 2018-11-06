@@ -13,9 +13,7 @@ public interface SysFunctionService {
 
     void delete(Long[] idList);
 
-    List<SysFunction> selectTopFunction();
+    List<SysFunction> selectTopFunctions();
 
-    List<SysFunction> selectChildFunction(Long functionId);
-
-    Integer selectChildFunctionCount(Long functionId);
+    List<SysFunction> selectChildFunctions(Long functionId);
 }

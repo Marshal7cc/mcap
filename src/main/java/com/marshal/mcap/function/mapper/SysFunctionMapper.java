@@ -7,9 +7,7 @@ import java.util.List;
 
 public interface SysFunctionMapper extends Mapper<SysFunction> {
 
-    List<SysFunction> selectTopFunction();
+    List<SysFunction> selectTopFunctions();
 
-    List<SysFunction> selectChildFunction(Long functionId);
-
-    Integer selectChildFunctionCount(Long functionId);
+    List<SysFunction> selectChildFunctions(Long functionId);
 }

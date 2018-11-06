@@ -44,17 +44,12 @@ public class SysFunctionServiceImpl implements SysFunctionService {
     }
 
     @Override
-    public List<SysFunction> selectTopFunction() {
-        return sysFunctionMapper.selectTopFunction();
+    public List<SysFunction> selectTopFunctions() {
+        return sysFunctionMapper.selectTopFunctions();
     }
 
     @Override
-    public List<SysFunction> selectChildFunction(Long functionId) {
-        return sysFunctionMapper.selectChildFunction(functionId);
-    }
-
-    @Override
-    public Integer selectChildFunctionCount(Long functionId) {
-        return sysFunctionMapper.selectChildFunctionCount(functionId);
+    public List<SysFunction> selectChildFunctions(Long functionId) {
+        return sysFunctionMapper.selectChildFunctions(functionId);
     }
 }
