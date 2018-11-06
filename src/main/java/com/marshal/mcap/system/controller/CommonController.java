@@ -29,10 +29,10 @@ public class CommonController {
      * @param name
      * @return
      */
-//    @RequestMapping(value = {"/{name}.html"})
-//    public ModelAndView renderView(@PathVariable String name) {
-//        return new ModelAndView(name);
-//    }
+    @RequestMapping(value = {"/{name}.html"})
+    public ModelAndView renderView(@PathVariable String name) {
+        return new ModelAndView(name);
+    }
 
     @RequestMapping(value = {"/{folder1}/{name}.html"})
     public ModelAndView renderFolder1View(@PathVariable String folder1, @PathVariable String name) {

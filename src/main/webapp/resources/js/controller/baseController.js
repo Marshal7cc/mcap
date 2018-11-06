@@ -6,7 +6,7 @@ app.controller("baseController",function ($scope) {
     //分页
     $scope.pageConf = {
         currentPage: 1,
-        totalItems: 10,
+        totalItems: 0,
         itemsPerPage: 5,
         perPageOptions: [5,10, 20, 30, 40, 50],
         onChange: function(){
