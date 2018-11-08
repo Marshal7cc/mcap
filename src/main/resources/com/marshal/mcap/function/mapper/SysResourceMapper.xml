@@ -10,4 +10,11 @@
     <result column="LOGIN_REQUIRE" jdbcType="VARCHAR" property="loginRequire" />
     <result column="ACCESS_CHECK" jdbcType="VARCHAR" property="accessCheck" />
   </resultMap>
+
+  <select id="getResourceOptions" resultType="java.util.Map">
+    select
+    resource_id as id,
+    url as text
+    from sys_resource
+  </select>
 </mapper>

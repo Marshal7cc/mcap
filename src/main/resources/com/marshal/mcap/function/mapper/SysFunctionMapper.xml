@@ -40,4 +40,29 @@
     parent_function_id=#{functionId}
   </select>
 
+  <select id="getFunctionOptions" resultType="java.util.Map">
+    select
+    function_id as id,
+    function_name as text
+    from sys_function
+  </select>
+
+  <select id="selectFunctions" resultMap="BaseResultMap">
+    select
+    sf.function_id,sf.function_code,sf.function_name,sf2.function_name as parentFunctionName,sf.function_icon,sr.url,sr.name as resourceName
+    from
+    sys_function sf
+    left join sys_resource sr on sf.resource_id=sr.resource_id
+    left join sys_function sf2 on sf.parent_function_id=sf2.function_id
+    <where>
+      <if test="functionName!=null">
+        sf.function_name=functionName
+      </if>
+      <if test="functionCode!=null">
+        sf.function_code=functionCode
+      </if>
+    </where>
+    order by
+    function_id asc
+  </select>
 </mapper>

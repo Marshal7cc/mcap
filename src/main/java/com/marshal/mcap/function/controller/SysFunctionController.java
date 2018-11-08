@@ -2,10 +2,16 @@ package com.marshal.mcap.function.controller;
 
 import com.marshal.mcap.function.entity.SysFunction;
 import com.marshal.mcap.function.service.SysFunctionService;
+import com.marshal.mcap.function.service.SysResourceService;
+import com.marshal.mcap.system.controller.BaseController;
+import com.marshal.mcap.system.entity.ResponseData;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -16,7 +22,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/sys/function")
-public class SysFunctionController {
+public class SysFunctionController extends BaseController {
 
     @Autowired
     SysFunctionService sysFunctionService;
@@ -47,5 +53,40 @@ public class SysFunctionController {
             }
         }
         return functionList;
+    }
+
+
+    /**
+     * 基础crud
+     */
+    @RequestMapping("/query")
+    public ResponseData query(@RequestBody SysFunction condition, int pageNum, int pageSize) {
+        List<SysFunction> list = sysFunctionService.selectFunctions(condition, pageNum, pageSize);
+        return new ResponseData(list);
+    }
+
+    @RequestMapping("/save")
+    public ResponseData save(@RequestBody SysFunction sysFunction) {
+        if (!getValidator().isValid(sysFunction)) {
+            return new ResponseData(false, getValidator().getErrors(sysFunction));
+        }
+        sysFunctionService.save(sysFunction);
+        return new ResponseData(true, "保存成功");
+    }
+
+    @RequestMapping("/delete")
+    public ResponseData delete(@RequestParam("selectedIds") Long[] selectedIds) {
+        sysFunctionService.delete(selectedIds);
+        return new ResponseData(true, "删除成功");
+    }
+
+    @RequestMapping("/queryById")
+    public SysFunction queryById(@RequestParam Long id) {
+        return sysFunctionService.selectByPrimaryKey(id);
+    }
+
+    @RequestMapping("/getFunctionOptions")
+    public List<Map> getFunctionOptions() {
+        return sysFunctionService.getFunctionOptions();
     }
 }

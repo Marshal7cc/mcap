@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -24,7 +25,7 @@ public class SysResourceServiceImpl implements SysResourceService {
 
     @Override
     public List<SysResource> select(SysResource condition, int pageNum, int pageSize) {
-        PageHelper.startPage(pageNum,pageSize);
+        PageHelper.startPage(pageNum, pageSize);
         return sysResourceMapper.select(condition);
     }
 
@@ -35,11 +36,26 @@ public class SysResourceServiceImpl implements SysResourceService {
 
     @Override
     public void save(SysResource sysResource) {
-
+        if (sysResource.getResourceId() == null) {
+            sysResourceMapper.insertSelective(sysResource);
+        } else {
+            sysResourceMapper.updateByPrimaryKeySelective(sysResource);
+        }
     }
 
     @Override
     public void delete(Long[] idList) {
+        for (Long id : idList) {
+            sysResourceMapper.deleteByPrimaryKey(id);
+        }
+    }
 
+    /**
+     * 获取下拉框数据
+     * @return
+     */
+    @Override
+    public List<Map> getResourceOptions() {
+        return sysResourceMapper.getResourceOptions();
     }
 }

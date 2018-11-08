@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -23,9 +24,9 @@ public class SysFunctionServiceImpl implements SysFunctionService {
     SysFunctionMapper sysFunctionMapper;
 
     @Override
-    public List<SysFunction> select(SysFunction condition, int pageNum, int pageSize) {
+    public List<SysFunction> selectFunctions(SysFunction condition, int pageNum, int pageSize) {
         PageHelper.startPage(pageNum,pageSize);
-        return sysFunctionMapper.select(condition);
+        return sysFunctionMapper.selectFunctions(condition);
     }
 
     @Override
@@ -35,14 +36,29 @@ public class SysFunctionServiceImpl implements SysFunctionService {
 
     @Override
     public void save(SysFunction sysFunction) {
-
+        if(sysFunction.getFunctionId()==null){
+            sysFunctionMapper.insertSelective(sysFunction);
+        }else {
+            sysFunctionMapper.updateByPrimaryKeySelective(sysFunction);
+        }
     }
 
     @Override
     public void delete(Long[] idList) {
-
+        for(Long id :idList){
+            sysFunctionMapper.deleteByPrimaryKey(id);
+        }
     }
 
+    @Override
+    public List<Map> getFunctionOptions() {
+        return sysFunctionMapper.getFunctionOptions();
+    }
+
+    /**
+     * 生成首页菜单
+     * @return
+     */
     @Override
     public List<SysFunction> selectTopFunctions() {
         return sysFunctionMapper.selectTopFunctions();

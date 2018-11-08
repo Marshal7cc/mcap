@@ -36,9 +36,4 @@ app.service("quartzService",function($http){
     this.deleteJob=function (jobName,jobGroup) {
         return $http.get("../quartz/job/deleteJob?jobName="+jobName+"&jobGroup="+jobGroup);
     }
-
-    this.queryById=function (id) {
-        return $http.get("../account/user/queryById?id="+id);
-    }
-
 });

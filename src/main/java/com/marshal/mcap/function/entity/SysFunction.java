@@ -2,6 +2,7 @@ package com.marshal.mcap.function.entity;
 
 import java.math.BigDecimal;
 import java.util.List;
+import javax.annotation.Resource;
 import javax.persistence.*;
 
 @Table(name = "sys_function")
@@ -70,6 +71,12 @@ public class SysFunction {
 
     @Transient
     private List<SysFunction> childFunctions;
+
+    @Transient
+    private String parentFunctionName;
+
+    @Transient
+    private String resourceName;
 
     /**
      * @return FUNCTION_ID
@@ -261,5 +268,21 @@ public class SysFunction {
 
     public void setChildFunctions(List<SysFunction> childFunctions) {
         this.childFunctions = childFunctions;
+    }
+
+    public String getParentFunctionName() {
+        return parentFunctionName;
+    }
+
+    public void setParentFunctionName(String parentFunctionName) {
+        this.parentFunctionName = parentFunctionName;
+    }
+
+    public String getResourceName() {
+        return resourceName;
+    }
+
+    public void setResourceName(String resourceName) {
+        this.resourceName = resourceName;
     }
 }
