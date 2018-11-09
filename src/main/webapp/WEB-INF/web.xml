@@ -79,14 +79,14 @@
 	</filter-mapping>
 
 	<!--自定义过滤器-->
-	<!--<filter>-->
-	<!--<filter-name>LoginFilter</filter-name>-->
-	<!--<filter-class>com.marshalal.filter.LoginFilter</filter-class>-->
-	<!--</filter>-->
-	<!--<filter-mapping>-->
-	<!--<filter-name>LoginFilter</filter-name>-->
-	<!--<url-pattern>/*</url-pattern>-->
-	<!--</filter-mapping>-->
+	<filter>
+	<filter-name>DemoFilter</filter-name>
+	<filter-class>com.marshal.mcap.core.filter.DemoFilter</filter-class>
+	</filter>
+	<filter-mapping>
+	<filter-name>DemoFilter</filter-name>
+	<url-pattern>/*</url-pattern>
+	</filter-mapping>
 	
 	<!-- 首页面 -->
 	<welcome-file-list>
