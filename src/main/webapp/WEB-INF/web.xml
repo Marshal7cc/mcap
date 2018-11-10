@@ -1,95 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee     
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
     http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
 
-	<!-- Spring -->
-	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener>
+    <!-- Spring -->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
 
-	<context-param>
-		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath:spring/applicationContext*.xml</param-value>
-	</context-param>
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:spring/applicationContext*.xml</param-value>
+    </context-param>
 
-	<!-- 防止Spring内存溢出监听器 -->
-	<listener>
-		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
-	</listener>
+    <!-- 防止Spring内存溢出监听器 -->
+    <listener>
+        <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+    </listener>
 
-	<!--SpringSecurity-->
-	<!--<filter>-->
-		<!--<filter-name>springSecurityFilterChain</filter-name>-->
-		<!--<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>-->
-	<!--</filter>-->
-	<!--<filter-mapping>-->
-		<!--<filter-name>springSecurityFilterChain</filter-name>-->
-		<!--<url-pattern>/*</url-pattern>-->
-	<!--</filter-mapping>-->
-	
-	<!-- springMVC -->
-	<servlet>
-		<servlet-name>springMVC</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-		<init-param>
-			<param-name>contextConfigLocation</param-name>
-			<param-value>classpath:spring/spring-MVC.xml</param-value>
-		</init-param>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
+    <!-- springMVC -->
+    <servlet>
+        <servlet-name>springMVC</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:spring/spring-MVC.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
 
-	<servlet-mapping>
-		<servlet-name>springMVC</servlet-name>
-		<url-pattern>/</url-pattern>
-	</servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>springMVC</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
 
-	<!--修复/WEB-INF/**/*依旧会被拦截的问题-->
-	<servlet-mapping>
-		<servlet-name>default</servlet-name>
-		<url-pattern>/WEB-INF/*</url-pattern>
-		<url-pattern>/WEB-INF/*/*</url-pattern>
-		<url-pattern>/editor-app/editor.html</url-pattern>
-		<url-pattern>/editor-app/*/*</url-pattern>
-		<url-pattern>/editor-app/popups/*</url-pattern>
-		<url-pattern>/editor-app/*/*/*</url-pattern>
-		<url-pattern>/editor-app/configuration/properties/*</url-pattern>
-		<url-pattern>/editor-app/partials/stencil-item-template.html</url-pattern>
-		<url-pattern>/diagram-viewer/index.html</url-pattern>
-	</servlet-mapping>
+    <!--修复/WEB-INF/**/*依旧会被拦截的问题-->
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>/WEB-INF/*</url-pattern>
+        <url-pattern>/WEB-INF/*/*</url-pattern>
+        <url-pattern>/editor-app/*</url-pattern>
+        <url-pattern>/editor-app/*/*</url-pattern>
+        <url-pattern>/editor-app/*/*/*</url-pattern>
+        <url-pattern>/diagram-viewer/*</url-pattern>
+    </servlet-mapping>
 
-	<!-- 编码过滤 -->
-	<filter>
-		<filter-name>encodingFilter</filter-name>
-		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
-		<init-param>
-			<param-name>encoding</param-name>
-			<param-value>UTF-8</param-value>
-		</init-param>
-		<init-param>
-			<param-name>forceEncoding</param-name>
-			<param-value>true</param-value>
-		</init-param>
-	</filter>
+    <!--SpringSecurity-->
+    <!--<filter>-->
+    <!--<filter-name>springSecurityFilterChain</filter-name>-->
+    <!--<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>-->
+    <!--</filter>-->
+    <!--<filter-mapping>-->
+    <!--<filter-name>springSecurityFilterChain</filter-name>-->
+    <!--<url-pattern>/*</url-pattern>-->
+    <!--</filter-mapping>-->
 
-	<filter-mapping>
-		<filter-name>encodingFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
+    <!-- 编码过滤 -->
+    <filter>
+        <filter-name>encodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+        <init-param>
+            <param-name>forceEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>encodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 
-	<!--自定义过滤器-->
-	<filter>
-	<filter-name>DemoFilter</filter-name>
-	<filter-class>com.marshal.mcap.core.filter.DemoFilter</filter-class>
-	</filter>
-	<filter-mapping>
-	<filter-name>DemoFilter</filter-name>
-	<url-pattern>/*</url-pattern>
-	</filter-mapping>
-	
-	<!-- 首页面 -->
-	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
-	</welcome-file-list>
+    <!--自定义过滤器-->
+    <filter>
+        <filter-name>DemoFilter</filter-name>
+        <filter-class>com.marshal.mcap.core.filter.DemoFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>DemoFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
 </web-app>

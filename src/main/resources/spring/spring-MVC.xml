@@ -65,6 +65,9 @@
     <mvc:resources mapping="/editor-app/**" location="/editor-app/" />
     <mvc:resources mapping="/diagram-viewer/**" location="/diagram-viewer/" />
 
+    <!--默认请求处理-->
+    <mvc:view-controller path="/" view-name="/index"/>
+
     <!--拦截器-->
     <mvc:interceptors>
         <mvc:interceptor>
