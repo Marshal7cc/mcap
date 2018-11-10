@@ -65,6 +65,12 @@
     <mvc:resources mapping="/editor-app/**" location="/editor-app/" />
     <mvc:resources mapping="/diagram-viewer/**" location="/diagram-viewer/" />
 
-    <!--<mvc:interceptors>-->
-    <!--</mvc:interceptors>-->
+    <!--拦截器-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/login"/>
+            <bean class="com.marshal.mcap.core.interceptor.DemoInterceptor" />
+        </mvc:interceptor>
+    </mvc:interceptors>
 </beans>

@@ -9,6 +9,7 @@ import java.io.IOException;
 public class DemoFilter implements Filter {
     /**
      * 容器初始化时
+     *
      * @param filterConfig
      * @throws ServletException
      */
@@ -19,21 +20,24 @@ public class DemoFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        HttpServletRequest request = (HttpServletRequest)servletRequest;
-        HttpServletResponse response = (HttpServletResponse)servletResponse;
+        HttpServletRequest request = (HttpServletRequest) servletRequest;
+        HttpServletResponse response = (HttpServletResponse) servletResponse;
         HttpSession session = request.getSession();
-        if(true){
+        if (true) {
             /**
              * 请求执行前处理，一般对request或session进行处理
              */
+            Long start = System.currentTimeMillis();
             System.out.println("Custom Filter preview handler execute");
             //请求执行
-            filterChain.doFilter(servletRequest,servletResponse);
+            filterChain.doFilter(servletRequest, servletResponse);
             /**
              * 请求执行后处理，一般对response进行处理
              */
+            Long end = System.currentTimeMillis();
+            Long responseTime = start - end;
             System.out.println("Custom Filter post handler execute");
-        }else{
+        } else {
             response.sendRedirect("/user/login");
         }
     }
