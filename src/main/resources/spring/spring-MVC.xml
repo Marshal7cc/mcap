@@ -59,7 +59,7 @@
     </bean>
 
 
-    <!-- 处理静态资源 -->
+    <!-- 处理静态资源 js/css/img,.html会被commonController先拦截-->
     <!--.html-dispatchservlet-defaultservlet-->
     <mvc:default-servlet-handler/>
     <mvc:resources mapping="/editor-app/**" location="/editor-app/" />

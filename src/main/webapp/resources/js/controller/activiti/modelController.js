@@ -24,6 +24,11 @@ app.controller("modelController",function ($scope,$controller,modelService) {
     }
     //保存
     $scope.save=function () {
+        $scope.modelRequest.version=1;
+        $scope.modelRequest.metaInfo=JSON.stringify({
+            name:$scope.modelRequest.name,
+            version:$scope.modelRequest.version,
+        });
         modelService.save($scope.modelRequest).success(function (modelRequest) {
             $scope.reloadList();
         });

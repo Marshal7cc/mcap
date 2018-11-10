@@ -40,6 +40,7 @@
         <servlet-name>default</servlet-name>
         <url-pattern>/WEB-INF/*</url-pattern>
         <url-pattern>/WEB-INF/*/*</url-pattern>
+        <!--activiti .html防止被commonController拦截-->
         <url-pattern>/editor-app/*</url-pattern>
         <url-pattern>/editor-app/*/*</url-pattern>
         <url-pattern>/editor-app/*/*/*</url-pattern>
