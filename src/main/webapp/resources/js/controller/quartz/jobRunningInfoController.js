@@ -7,9 +7,8 @@ app.controller("jobRunningInfoController",function ($scope,$controller,jobRunnin
     //查询,初始化查询条件为空
     $scope.condition={};
     $scope.query=function (pageNum,pageSize) {
-        jobRunningInfoService.query(pageNum,pageSize,$scope.condition).success(function (data) {
-            $scope.rows=data.rows;
-            $scope.pageConf.totalItems=data.total;
+        jobRunningInfoService.query(pageNum,pageSize,$scope.condition).success(function (responseData) {
+            $scope.parseResponse(responseData);
         });
     }
 });

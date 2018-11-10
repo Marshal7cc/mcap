@@ -7,20 +7,12 @@ app.controller("quartzController", function ($scope, $controller, quartzService)
      */
     $scope.startUp = function () {
         quartzService.startUp().success(function (responseData) {
-            if (responseData.success) {
-                swal("", responseData.message, "success");
-            } else {
-                swal("", responseData.message, "info");
-            }
+            $scope.parseResponse(responseData);
         })
     }
     $scope.standBy = function () {
         quartzService.standBy().success(function (responseData) {
-            if (responseData.success) {
-                swal("", responseData.message, "success");
-            } else {
-                swal("", responseData.message, "info");
-            }
+            $scope.parseResponse(responseData);
         })
     }
     /**
@@ -28,63 +20,31 @@ app.controller("quartzController", function ($scope, $controller, quartzService)
      */
     $scope.condition = {};
     $scope.query = function (pageNum, pageSize) {
-        quartzService.query(pageNum, pageSize, $scope.condition).success(function (data) {
-            $scope.rows = data.rows;
-            $scope.pageConf.totalItems = data.total;
+        quartzService.query(pageNum, pageSize, $scope.condition).success(function (responseData) {
+            $scope.parseResponse(responseData);
         });
     }
     $scope.pauseJob = function (jobName, jobGroup) {
         quartzService.pauseJob(jobName, jobGroup).success(function (responseData) {
-            if (responseData.success) {
-                swal("", responseData.message, "success");
-                $scope.reloadList();
-            } else {
-                swal("", responseData.message, "info");
-            }
+            $scope.parseResponse(responseData);
         });
     }
     $scope.resumeJob = function (jobName, jobGroup) {
         quartzService.resumeJob(jobName, jobGroup).success(function (responseData) {
-            if (responseData.success) {
-                swal("", responseData.message, "success");
-                $scope.reloadList();
-            } else {
-                swal("", responseData.message, "info");
-            }
+            $scope.parseResponse(responseData);
         });
     }
     $scope.deleteJob = function (jobName, jobGroup) {
-        swal({
-                title: "",
-                text: "确定删除？",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "确认",
-                cancelButtonText: "取消"
-            },
-            function (isConfirm) {
-                if (isConfirm) {
-                    quartzService.deleteJob(jobName, jobGroup).success(function (responseData) {
-                        if (responseData.success) {
-                            swal("", responseData.message, "success");
-                            $scope.reloadList();
-                        } else {
-                            swal("", responseData.message, "info");
-                        }
-                    });
-                }
+        if($scope.deleteConfirm()==true){
+            quartzService.deleteJob(jobName, jobGroup).success(function (responseData) {
+                $scope.parseResponse(responseData);
             });
+        }
     }
     //保存
     $scope.createJob = function () {
         quartzService.createJob($scope.jobCreateInfo).success(function (responseData) {
-            if (responseData.success) {
-                swal("提示", responseData.message, "success");
-                $scope.reloadList();
-            } else {
-                swal("提示", responseData.message, "info");
-            }
+            $scope.parseResponse(responseData);
         });
     }
 
