@@ -24,8 +24,8 @@ public class DataResponseSerializer extends JsonSerializer<DataResponse> {
             Map<String,Object> result = new HashMap<>();
             result.put("total",dataResponse.getTotal());
             result.put("rows",dataResponse.getData());
-            result.put("success","true");
-            result.put("message","sucess");
+            result.put("success",true);
+            result.put("message","success");
             jsonGenerator.writeObject(result);
         }else {
             jsonGenerator.writeObject(JSON.toJSON(dataResponse));

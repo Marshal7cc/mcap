@@ -1,5 +1,9 @@
 package com.marshal.mcap.core.filter;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
+
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -7,6 +11,8 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class DemoFilter implements Filter {
+    private static  final Logger logger = LoggerFactory.getLogger(DemoFilter.class);
+
     /**
      * 容器初始化时
      *
@@ -23,6 +29,11 @@ public class DemoFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         HttpSession session = request.getSession();
+        /**
+         * 测试MDC
+         */
+        MDC.put("data", "mdcData");
+        logger.debug("filter execute");
         if (true) {
             /**
              * 请求执行前处理，一般对request或session进行处理
