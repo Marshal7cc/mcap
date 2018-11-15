@@ -20,7 +20,9 @@
 		<!-- 当前用户必须拥有ROLE_USER角色，才能访问根目录及子目录的所有资源 -->
 		<intercept-url pattern="/**" access="hasRole('ROLE_USER')"/>
 		<!--login-->
-		<form-login login-page="/login.html" default-target-url="/index.html" authentication-failure-url="/login.html" always-use-default-target="true"/>
+		<form-login login-page="/login.html" default-target-url="/index.html"
+                    authentication-failure-url="/login.html" always-use-default-target="true"
+                    authentication-success-handler-ref="authenticateSuccessHandler"/>
 		<!--允许iframe-->
 		<headers>
 			<frame-options policy="SAMEORIGIN"/>
@@ -37,4 +39,7 @@
 
 	<beans:bean id="customUserService" class="com.marshal.mcap.security.service.impl.CustomUserDetailService">
 	</beans:bean>
+
+    <beans:bean id="authenticateSuccessHandler" class="com.marshal.mcap.security.handler.AuthenticateSuccessHandler">
+    </beans:bean>
 </beans:beans>
