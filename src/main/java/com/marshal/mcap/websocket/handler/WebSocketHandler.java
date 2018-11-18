@@ -5,13 +5,14 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created with IntelliJ IDEA.
  * author: Marshal
  * Date: 2018/11/15
  * Time: 21:06
- * Description:
+ * Description:WebSocket处理器
  */
 public class WebSocketHandler extends TextWebSocketHandler {
 
@@ -33,7 +34,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
         users.add(session);
         String username = (String) session.getAttributes().get("username");
         System.out.println("用户 " + username + " Connection Established");
-        session.sendMessage(new TextMessage(username + " connect"));
+//        session.sendMessage(new TextMessage(username + " connect"));
     }
 
     /**
@@ -83,19 +84,20 @@ public class WebSocketHandler extends TextWebSocketHandler {
 
         // 分割成id和信息内容
         String[] messageInfo = message.getPayload().split("@");
-        if (messageInfo.length != 2) {
+        if (messageInfo.length != 3) {
             sendMessageToOne(username, new TextMessage("500@服务器出错请稍后再发送吧"));
         } else {
-            String target = messageInfo[0];
-            String content = messageInfo[1];
+            String sendDate = messageInfo[0];
+            String target = messageInfo[1];
+            String content = messageInfo[2];
             // 遍历所有已连接用户
             for (WebSocketSession user : users) {
                 if (user.getAttributes().get("username").equals(target)) {
                     //遇到匹配用户 连接正常则发送消息
                     if (user.isOpen()) {
-                        sendMessageToOne(target, new TextMessage("200@" + content));
+                        sendMessageToOne(target, new TextMessage("success@"+sendDate+"@"+target+"@"+ content));
                     } else {//若异常则发送失败
-                        sendMessageToOne(username, new TextMessage("404@对方在线异常,发送失败"));
+                        sendMessageToOne(username, new TextMessage("false@对方离线"));
                     }
                     return;
                 }
@@ -109,12 +111,12 @@ public class WebSocketHandler extends TextWebSocketHandler {
     /**
      * 给某个用户发送消息
      *
-     * @param username
+     * @param targetName
      * @param message
      */
-    public void sendMessageToOne(String username, TextMessage message) {
+    public void sendMessageToOne(String targetName, TextMessage message) {
         for (WebSocketSession user : users) {
-            if (user.getAttributes().get("username").equals(username)) {
+            if (user.getAttributes().get("username").equals(targetName)) {
                 try {
                     if (user.isOpen()) {
                         user.sendMessage(message);

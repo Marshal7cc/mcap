@@ -14,10 +14,19 @@ import java.util.Map;
  * author: Marshal
  * Date: 2018/11/15
  * Time: 21:01
- * Description:
+ * Description:websocket连接前后事件
  */
 public class WebSocketHandShakeInterceptor implements HandshakeInterceptor {
 
+    /**
+     * 连接前事件，将用户信息传入websocket session
+     * @param request
+     * @param response
+     * @param webSocketHandler
+     * @param attributes
+     * @return
+     * @throws Exception
+     */
     @Override
     public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler webSocketHandler, Map<String, Object> attributes) throws Exception {
         if (request instanceof ServletServerHttpRequest) {
@@ -28,6 +37,9 @@ public class WebSocketHandShakeInterceptor implements HandshakeInterceptor {
                 if (username == null) {
                     username = "未知" + session.getId();
                 }
+                /**
+                 * attributes传入websocketSession
+                 */
                 attributes.put("username", username);  //将用户标识放入参数列表后，下一步的websocket处理器可以读取这里面的数据
             }
         }
@@ -35,8 +47,15 @@ public class WebSocketHandShakeInterceptor implements HandshakeInterceptor {
 
     }
 
+    /**
+     * 连接后时间
+     * @param request
+     * @param response
+     * @param webSocketHandler
+     * @param e
+     */
     @Override
     public void afterHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler webSocketHandler, Exception e) {
-        System.out.println("After Handshake");
+//        System.out.println("After Handshake");
     }
 }

@@ -36,6 +36,10 @@ public class WebSocketConfig implements WebSocketConfigurer {
 
     }
 
+    /**
+     * 配置websocket处理器
+     * @return
+     */
     @Bean
     public TextWebSocketHandler webSocketHandler() {
         return new WebSocketHandler();

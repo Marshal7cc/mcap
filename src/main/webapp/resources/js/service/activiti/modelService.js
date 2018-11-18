@@ -5,7 +5,7 @@
 app.service("modelService",function($http){
     //base crud
     this.query=function(pageNum,pageSize,condition){
-        return $http.get("../repository/models?start="+(pageNum-1)*pageSize+"&size="+pageSize);
+        return $http.get(baseContextPath+"/repository/models?start="+(pageNum-1)*pageSize+"&size="+pageSize);
     }
 
     this.save=function (modelRequest) {

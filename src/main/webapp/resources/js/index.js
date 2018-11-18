@@ -20,11 +20,11 @@ $(document).ready(function () {
         functionTree.forEach(function (treeNode) {
             if (treeNode.childFunctions == undefined || treeNode.childFunctions == null) {
                 menuHtml += '<li>\n' +
-                    '    <a href="javascript:$(\'#mainframe\').attr(\'src\',\''+treeNode.url+'\')"><i class="' + treeNode.functionIcon + '"></i> <span>' + treeNode.functionName + '</span></a>\n' +
+                    '    <a href="javascript:$(\'#mainframe\').attr(\'src\',\'' + treeNode.url + '\')"><i class="' + treeNode.functionIcon + '"></i> <span>' + treeNode.functionName + '</span></a>\n' +
                     '</li>';
-            } else if(treeNode.childFunctions!=undefined){
+            } else if (treeNode.childFunctions != undefined) {
                 menuHtml += '<li class="treeview">\n' +
-                    '            <a href="#"><i class="'+treeNode.functionIcon+'"></i> <span>'+treeNode.functionName+'</span>\n' +
+                    '            <a href="#"><i class="' + treeNode.functionIcon + '"></i> <span>' + treeNode.functionName + '</span>\n' +
                     '                <span class="pull-right-container">\n' +
                     '                            <i class="fa fa-angle-left pull-right"></i>\n' +
                     '                        </span>\n' +
@@ -37,9 +37,4 @@ $(document).ready(function () {
         });
         return menuHtml;
     }
-
-    function turnToFunction(url){
-        $('#mainframe').attr('src',url);
-    }
-
 });
