@@ -3,34 +3,43 @@
 	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 						http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
-	<!--拦截白名单-->
-	<http security="none" pattern="/*.html"></http>
-	<http security="none" pattern="/css/**"></http>
-	<http security="none" pattern="/js/**"></http>
-	<http security="none" pattern="/img/**"></http>
+	<!--白名单-->
+	<http security="none" pattern="/diagram-viewer/**"></http>
+	<http security="none" pattern="/editor-app/**"></http>
+	<http security="none" pattern="/resources/**"></http>
+	<!--<http security="none" pattern="/*.html"></http>-->
 
 	<!--页面的拦截规则-->
-	<http use-expressions="false">
-		<!-- 当前用户必须拥有ROLE_USER角色，才能访问根目录及子目录的所有资源 -->
-		<intercept-url pattern="/**" access="ROLE_ADMIN"/>
-		<!-- 开启表单登陆功能 -->
-		<form-login login-page="/login.html" default-target-url="/admin/index.html" authentication-failure-url="/login.html" always-use-default-target="true"/>
+	<http>
 		<!--关闭csrf验证-->
 		<csrf disabled="true"/>
+
+		<intercept-url pattern="/login" access="permitAll"/>
+		<intercept-url pattern="/login.html" access="permitAll"/>
+
+		<!-- 当前用户必须拥有ROLE_USER角色，才能访问根目录及子目录的所有资源 -->
+		<intercept-url pattern="/**" access="hasRole('ROLE_USER')"/>
+		<!--login-->
+		<form-login login-page="/login.html" default-target-url="/index.html"
+                    authentication-failure-url="/login.html" always-use-default-target="true"
+                    authentication-success-handler-ref="authenticateSuccessHandler"/>
 		<!--允许iframe-->
 		<headers>
 			<frame-options policy="SAMEORIGIN"/>
 		</headers>
 		<!--退出 logout-success-url -->
-		<logout logout-url="/logout" />
+		<logout logout-url="/logout" logout-success-url="/login.html"/>
 	</http>
 
 	<!--认证管理器-->
 	<authentication-manager>
-		<authentication-provider>
-			<user-service>
-				<user name="admin" password="123456" authorities="ROLE_ADMIN"/>
-			</user-service>
+		<authentication-provider user-service-ref="customUserService">
 		</authentication-provider>
 	</authentication-manager>
+
+	<beans:bean id="customUserService" class="com.marshal.mcap.security.service.impl.CustomUserDetailService">
+	</beans:bean>
+
+    <beans:bean id="authenticateSuccessHandler" class="com.marshal.mcap.security.handler.AuthenticateSuccessHandler">
+    </beans:bean>
 </beans:beans>

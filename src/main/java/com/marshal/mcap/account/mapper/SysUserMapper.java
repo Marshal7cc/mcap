@@ -9,4 +9,6 @@ import java.util.Map;
 public interface SysUserMapper extends Mapper<SysUser> {
 
     List<Map> getUserOptions();
+
+    SysUser getUserByUsername(String username);
 }
